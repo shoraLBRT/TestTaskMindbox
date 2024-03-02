@@ -1,0 +1,24 @@
+В описании задания не было указано, создана ли была таблица для связи многие ко многим. Поэтому для начала нужно создать
+такую таблицу:
+
+
+CREATE TABLE ProductCategories (
+    ProductId INT,
+    CategoryId INT,
+    PRIMARY KEY (ProductId, CategoryId),
+    FOREIGN KEY (ProductId) REFERENCES Products(Id),
+    FOREIGN KEY (CategoryId) REFERENCES Categories(Id)
+);
+
+
+После чего выполнить LEFT JOIN:
+
+SELECT
+    P.Name AS ProductName,
+    C.Name AS CategoryName
+FROM
+    Products AS P
+LEFT JOIN
+    ProductCategories AS PC ON P.Id = PC.ProductId
+LEFT JOIN
+    Categories AS C ON PC.CategoryId = C.Id;
